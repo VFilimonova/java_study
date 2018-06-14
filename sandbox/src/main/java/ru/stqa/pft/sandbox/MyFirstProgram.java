@@ -1,29 +1,21 @@
 package ru.stqa.pft.sandbox;
 
+import java.util.Arrays;
+
 public class MyFirstProgram {
     public static void main(String[] args) {
         hello("Piter");
         hello("Diana");
         hello("Ilia");
 
-        double len = 7;
-        System.out.println("Площадь квадрата со стороной " + len + " = " + aria(len));
+        Square s = new Square(5);
+        System.out.println("Площадь квадрата со стороной " + s.l + " = " + s.aria());
 
-        double a = 4;
-        double b = 6;
-        System.out.println("Площадь прямоугольника со сторонами " + a + " и " + b + " = " + aria(a, b));
+        Rectangle r = new Rectangle(4, 6);
+        System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.aria());
     }
 
     public static void hello(String somebody) {
         System.out.println("Hello," + somebody + "!");
     }
-
-    public static double aria(double b) {
-        return b * b;
-    }
-
-    public static double aria(double a, double b) {
-        return a * b;
-    }
-
 }
