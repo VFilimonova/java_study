@@ -8,6 +8,7 @@ public class MyFirstProgram {
         hello("Diana");
         hello("Ilia");
 
+
         Square s = new Square(5);
         System.out.println("Площадь квадрата со стороной " + s.l + " = " + s.aria());
 
@@ -15,7 +16,7 @@ public class MyFirstProgram {
         System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.aria());
     }
 
-    public static void hello(String somebody) {
+    private static void hello(String somebody) {
         System.out.println("Hello," + somebody + "!");
     }
 }
