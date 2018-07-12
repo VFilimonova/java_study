@@ -6,13 +6,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class СontactsCreationTests {
+public class TestBase {
     FirefoxDriver wd;
-    
+
+    public static boolean isAlertPresent(FirefoxDriver wd) {
+        try {
+            wd.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
+
     @BeforeMethod
     public void setUp() throws Exception {
         wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
@@ -21,13 +29,8 @@ public class СontactsCreationTests {
         login("admin", "secret");
     }
 
+    //Ввод авторизационных данных
     public void login(String name, String password) {
-        Authorization(name, password, wd);
-    }
-
-    static void Authorization(String name, String password, FirefoxDriver wd) {
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        wd.get("http://localhost/addressbook/index.php");
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
         wd.findElement(By.name("user")).sendKeys(name);
@@ -37,23 +40,60 @@ public class СontactsCreationTests {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    @Test
-    public void testСontactsCreation() {
-        gotoAddContactsPage("add new");
-        fillContactForm(new ContactsData("name1", "middlename", "lastname", "nickname", "title", "company", "address", "home", "work", "fax", "test@test.ru", "test2@test.ru", "test3@test.com", "homepage"));
-        submitContactCreation();
-        returnToHomePage();
+    //Возврат на страницу с группами
+    protected void returnToGroupPage(){
+        wd.findElement(By.linkText("group page")).click();
     }
 
-    private void returnToHomePage() {
-        wd.findElement(By.linkText("home page")).click();
-    }
-
-    private void submitContactCreation() {
+    protected void submitGroupCreation(){
         wd.findElement(By.name("submit")).click();
     }
 
-    private void fillContactForm(ContactsData contactsData) {
+    //Заполнение формы группы
+    protected void fillGroupForm(GroupData groupData) {
+        wd.findElement(By.name("group_name")).click();
+        wd.findElement(By.name("group_name")).clear();
+        wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
+        wd.findElement(By.name("group_header")).click();
+        wd.findElement(By.name("group_header")).clear();
+        wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
+        wd.findElement(By.name("group_footer")).click();
+        wd.findElement(By.name("group_footer")).clear();
+        wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
+    }
+
+    //Нажатие кнопки создания группы
+    protected void initGroupCreation() {
+        wd.findElement(By.name("new")).click();
+    }
+
+    //Переход на страницу групп в шапке
+    protected void gotoGroupPage() {
+        wd.findElement(By.linkText("groups")).click();
+    }
+
+    //Нажатие на кнопку удаления
+    protected void deleteSelectedGroups() {
+        wd.findElement(By.name("delete")).click();
+    }
+
+    //Выбор группы
+    protected void selectGroup() {
+        wd.findElement(By.xpath("//div[@id='content']/form/span[3]/input")).click();
+    }
+
+    //На главную страницу
+    protected void returnToHomePage() {
+        wd.findElement(By.linkText("home page")).click();
+    }
+
+    //Нажатие кнопки создания контакта
+    protected void submitContactCreation() {
+        wd.findElement(By.name("submit")).click();
+    }
+
+    //Заполнение формы создания контакта
+    protected void fillContactForm(ContactsData contactsData) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(contactsData.getFirstname());
@@ -98,21 +138,12 @@ public class СontactsCreationTests {
         wd.findElement(By.name("homepage")).sendKeys(contactsData.getHomepage());
     }
 
-    private void gotoAddContactsPage(String s) {
+    protected void gotoAddContactsPage(String s) {
         wd.findElement(By.linkText(s)).click();
     }
 
     @AfterMethod
     public void tearDown() {
         wd.quit();
-    }
-    
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
     }
 }
