@@ -19,4 +19,14 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText(s));
     }
 
+    //Переход на страницу домой
+    public void gotoHomePage(){
+        click(By.linkText("home"));
+    }
+
+    //Закрытие диалогового окна
+    public void closeWindow(){
+        wd.switchTo().alert().accept();
+    }
+
 }
