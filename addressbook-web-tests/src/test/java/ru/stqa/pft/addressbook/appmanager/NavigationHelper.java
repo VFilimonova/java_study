@@ -1,11 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 public class NavigationHelper extends HelperBase {
 
-    public NavigationHelper(FirefoxDriver wd) {
+    public NavigationHelper(WebDriver wd) {
         super(wd);
     }
 
@@ -14,12 +14,17 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("groups"));
     }
 
-    //Переход на страницу добавления контакта
+/*    //Переход на страницу добавления контакта в шапке
     public void gotoAddNewContactsPage(String s) {
         click(By.linkText(s));
+    }*/
+
+    //Переход на страницу добавления контакта в шапке
+    public void gotoAddNewContactsPage1() {
+      click(By.xpath("//*[contains(text(),'add new')]"));
     }
 
-    //Переход на страницу домой
+    //Переход на страницу домой в шапке
     public void gotoHomePage(){
         click(By.linkText("home"));
     }

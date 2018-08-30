@@ -18,21 +18,21 @@ public class Equation {
 
         if (a != 0) {
             if (d > 0) {
-                n = 2;
+              n = 2;
             } else if (d == 0) {
-                n = 1;
+              n = 1;
             } else {
-                n = 0;
+              n = 0;
             }
 
         } else if (b != 0) {
-            n = 1;
+          n = 1;
 
         } else if (c != 0) {
-            n = 0;
+          n = 0;
 
         } else {
-            n = -1;
+          n = -1;
         }
     }
 
